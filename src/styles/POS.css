@@ -1,0 +1,21 @@
+:root {
+  --color-pos-fondo: #ffffff;
+  --color-pos-texto: #222;
+}
+
+.panel-pos {
+  background-color: var(--color-pos-fondo);
+  color: var(--color-pos-texto);
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.panel-pos ul {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+.panel-pos li {
+  margin-bottom: 0.5rem;
+}
+

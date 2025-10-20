@@ -1,0 +1,42 @@
+.menu-productos {
+  position: relative;
+}
+
+.menu-label {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--navbar-text);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+}
+
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 1.8rem;
+  left: 0;
+  background-color: var(--fondo-secundario);
+  border: 1px solid var(--navbar-hover-bg);
+  padding: 0.4rem;
+  border-radius: 6px;
+  box-shadow: var(--sombra-suave);
+  z-index: 10;
+}
+
+.menu-productos:hover .menu-dropdown {
+  display: block;
+}
+
+.menu-dropdown li {
+  list-style: none;
+  padding: 0.4rem 0.6rem;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--navbar-text);
+}
+
+.menu-dropdown li:hover {
+  background: var(--navbar-hover-bg);
+  border-radius: 4px;
+}

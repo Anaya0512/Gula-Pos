@@ -1,0 +1,76 @@
+.inventario-registro-panel {
+  max-width: 500px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 24px;
+}
+.inventario-registro-panel h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #222;
+  text-align: left;
+}
+.inventario-registro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-row label {
+  font-weight: 500;
+  color: #444;
+}
+.form-row input, .form-row select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+.btn-registrar {
+  background: #2d7cf7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+.btn-registrar:hover {
+  background: #1a5ed6;
+}
+.form-error {
+  color: #d32f2f;
+  background: #fdecea;
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 4px;
+  font-size: 0.98rem;
+}
+.form-success {
+  color: #388e3c;
+  background: #eafaf1;
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 4px;
+  font-size: 0.98rem;
+}
+@media (max-width: 600px) {
+  .inventario-registro-panel {
+    padding: 16px 4px;
+    max-width: 98vw;
+  }
+  .inventario-registro-panel h2 {
+    font-size: 1.1rem;
+  }
+}

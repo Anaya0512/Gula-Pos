@@ -1,0 +1,72 @@
+:root {
+  --color-rol-input: #f9f9f9;
+  --color-rol-boton: #007aff;
+  --color-rol-boton-secundario: #ccc;
+}
+
+.panel-roles {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.nuevo-rol input {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  background-color: var(--color-rol-input);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.nuevo-rol button {
+  background-color: var(--color-rol-boton);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.lista-roles {
+  margin-top: 2rem;
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.lista-roles li {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lista-roles button {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.lista-roles button:nth-child(2) {
+  background-color: var(--color-rol-boton);
+  color: white;
+}
+
+.lista-roles button:nth-child(3) {
+  background-color: var(--color-rol-boton-secundario);
+  color: #333;
+}
+
+@media (max-width: 1100px) {
+  .lista-roles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .lista-roles {
+    grid-template-columns: 1fr;
+  }
+}

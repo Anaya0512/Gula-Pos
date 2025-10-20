@@ -1,0 +1,93 @@
+.mesa-detalle-container {
+  padding: 2rem;
+  background-color: var(--ventana-bg);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--letra-principal);
+}
+
+.loading {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.mesa-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.mesa-icon-detalle {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.mesa-nombre {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.mesa-estado {
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  display: inline-block;
+  color: white;
+}
+
+.mesa-estado.libre {
+  background-color: var(--color-libre);
+}
+
+.mesa-estado.ocupada {
+  background-color: var(--color-ocupada);
+}
+
+.mesa-estado.reservada {
+  background-color: var(--color-reservada);
+  color: var(--letra-principal);
+}
+
+.orden-section {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--ventana-bg);
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+  padding: 1rem;
+}
+
+.orden-activa p,
+.sin-orden p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--letra-principal);
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.acciones button,
+.sin-orden button {
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  transition: background-color 0.2s ease;
+}
+
+.acciones button:hover,
+.sin-orden button:hover {
+  background-color: var(--navbar-hover-bg);
+}

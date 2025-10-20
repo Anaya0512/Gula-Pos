@@ -1,0 +1,85 @@
+.navbar-superior {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .navbar-superior {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.6rem 0.5rem;
+  }
+  .navbar-nombre-sistema {
+    font-size: 1.2rem !important;
+    gap: 8px;
+  }
+  .navbar-usuario-info {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  .navbar-foto-usuario {
+    width: 32px !important;
+    height: 32px !important;
+    margin-right: 6px !important;
+  }
+}
+.navbar-config-cerrar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+:root {
+  --navbar-superior-bg: #e50914;
+  --navbar-superior-text: #ffffff;
+  --navbar-hover-bg: #c40010;
+
+  --foto-usuario-tamano: 52px;
+  --usuario-font-size: 1rem;
+}
+
+.navbar-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background-color: var(--navbar-superior-bg);
+  color: var(--navbar-superior-text);
+  font-family: system-ui, sans-serif;
+}
+
+.navbar-nombre-sistema {
+  font-weight: bold;
+  font-size: 2rem;
+  color: var(--navbar-superior-text);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.navbar-usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.usuario-detalle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.navbar-rol,
+.navbar-nombre {
+  font-size: var(--usuario-font-size);
+  font-weight: bold;
+  color: var(--navbar-superior-text);
+}
+
+.navbar-foto-usuario {
+  width: var(--foto-usuario-tamano);
+  height: var(--foto-usuario-tamano);
+  border-radius: 100%;
+  object-fit: cover;
+  border: 2px solid var(--navbar-superior-text);
+}

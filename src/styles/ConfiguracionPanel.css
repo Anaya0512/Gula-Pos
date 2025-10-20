@@ -1,0 +1,103 @@
+:root {
+  /* Grupo visual para configuración */
+  --color-configuracion-borde: var(--ventana-borde);
+  --color-configuracion-activo-bg: var(--btn-bg);
+  --color-configuracion-activo-text: var(--btn-text);
+  --color-configuracion-hover-bg: var(--navbar-hover-bg);
+  --color-configuracion-hover-text: var(--navbar-text);
+  --espaciado-configuracion: 1rem;
+  --fuente-configuracion: 'Segoe UI', sans-serif;
+}
+
+.configuracion-panel {
+  display: flex;
+  min-height: 80vh;
+  background-color: var(--fondo-principal);
+  color: var(--letra-principal);
+  font-family: var(--fuente-configuracion);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Panel lateral */
+.configuracion-panel aside {
+  width: 250px;
+  background-color: var(--fondo-secundario);
+  border-right: 2px solid var(--color-configuracion-borde);
+  padding: var(--espaciado-configuracion);
+  box-sizing: border-box;
+}
+
+.configuracion-panel aside h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: var(--letra-principal);
+}
+
+/* Lista de botones */
+.configuracion-panel aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.configuracion-panel aside li {
+  margin-bottom: 0.5rem;
+}
+
+.configuracion-panel aside button {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  font-weight: 600;
+  border-radius: 6px;
+  color: var(--letra-principal);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.configuracion-panel aside button:hover {
+  background-color: var(--color-configuracion-hover-bg);
+  color: var(--color-configuracion-hover-text);
+}
+
+.configuracion-panel aside button.activo {
+  background-color: var(--color-configuracion-activo-bg);
+  color: var(--color-configuracion-activo-text);
+  border-left: 4px solid var(--color-configuracion-borde);
+}
+
+/* Panel de contenido */
+.configuracion-panel main {
+  flex: 1;
+  padding: 2rem;
+  background-color: var(--fondo-principal);
+  box-sizing: border-box;
+}
+
+/* Adaptación para móviles */
+@media screen and (max-width: 768px) {
+  .configuracion-panel {
+    flex-direction: column;
+    min-height: unset;
+    border-radius: 0;
+  }
+
+  .configuracion-panel aside {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-configuracion-borde);
+    padding: 1rem;
+  }
+
+  .configuracion-panel main {
+    padding: 1rem;
+  }
+
+  .configuracion-panel aside button {
+    font-size: 1rem;
+  }
+}

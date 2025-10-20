@@ -1,0 +1,151 @@
+.pos-completo {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--fondo-principal);
+  color: var(--letra-principal);
+}
+
+h2, h3 {
+  margin-bottom: 1rem;
+  color: var(--letra-principal);
+}
+
+.categorias-grid,
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.categoria-card,
+.producto-card {
+  background: var(--ventana-bg);
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: var(--sombra-suave);
+  transition: transform 0.2s ease;
+}
+
+.categoria-card:hover,
+.producto-card:hover {
+  transform: scale(1.02);
+}
+
+.categoria-card.seleccionada {
+  border: 2px solid var(--btn-bg);
+}
+
+.categoria-card img,
+.producto-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radio-suave);
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--ventana-borde);
+}
+
+.producto-card button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.producto-card button:hover {
+  background: var(--navbar-hover-bg);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--ventana-bg);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 320px;
+  text-align: center;
+  box-shadow: var(--sombra-suave);
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  background-color: var(--fondo-secundario);
+  color: var(--letra-principal);
+}
+
+.modal-content button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.modal-content button:hover {
+  background: var(--navbar-hover-bg);
+}
+
+.carrito {
+  background: var(--ventana-bg);
+  padding: 1rem;
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+  margin-top: 2rem;
+}
+
+.carrito ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.carrito li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--letra-principal);
+}
+
+.carrito button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background 0.2s ease;
+}
+
+.carrito button:hover {
+  background: var(--navbar-hover-bg);
+}

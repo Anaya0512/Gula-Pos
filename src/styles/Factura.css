@@ -1,0 +1,31 @@
+:root {
+  --color-fondo-factura: #fdfdfd;
+  --color-texto-factura: #333;
+  --color-acento-factura: #007aff;
+}
+
+.panel-factura {
+  background-color: var(--color-fondo-factura);
+  color: var(--color-texto-factura);
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.panel-factura ul {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+.panel-factura li {
+  margin-bottom: 0.5rem;
+}
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .panel-factura {
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0; top: 0; width: 100vw;
+  }
+}

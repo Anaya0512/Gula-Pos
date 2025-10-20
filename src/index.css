@@ -1,0 +1,75 @@
+:root {
+  /* Botones */
+  --btn-bg: #007bff;
+  --btn-text: #ffffff;
+
+  /* Ventanas */
+  --ventana-bg: #ffffff;
+  --ventana-text: #2d2d2d;
+  --ventana-borde: #dddddd;
+
+  /* Notificaciones */
+  --notificacion-bg: #28a745;
+  --notificacion-text: #ffffff;
+
+  /* Navbar */
+  --navbar-bg: #343a40;
+  --navbar-text: #ffffff;
+  --navbar-hover-bg: #495057;
+
+  /* Fondos */
+  --fondo-principal: #f8f9fa;
+  --fondo-secundario: #ffffff;
+
+  /* Tipografía */
+  --letra-principal: #212529;
+  --letra-secundaria: #6c757d;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--fondo-principal);
+  color: var(--letra-principal);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--navbar-hover-bg);
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--letra-principal);
+  background-color: var(--fondo-secundario);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--letra-principal);
+}
+
+a {
+  color: var(--btn-bg);
+  text-decoration: none;
+}

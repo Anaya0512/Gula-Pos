@@ -1,0 +1,446 @@
+/* --- FORMULARIO INFO NEGOCIO PROFESIONAL --- */
+.info-negocio-main {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fafbfc;
+  box-sizing: border-box;
+}
+
+.info-negocio-main-solo {
+  position: relative;
+}
+
+.info-negocio-form-panel {
+  background: linear-gradient(135deg, #f8fafc 80%, #f1f1f1 100%);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 3.2rem 3.2rem 2.8rem 3.2rem;
+  margin-top: 2.5rem;
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-negocio-panel-centrado {
+  margin: 0 auto;
+  max-width: 420px;
+  width: 100%;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-negocio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.12rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1.5px solid #f2f2f2;
+}
+
+.plan-nombre {
+  font-weight: bold;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  color: #d32f2f;
+  background: #ffeaea;
+  border-radius: 6px;
+  padding: 2px 12px;
+}
+
+.info-negocio-form {
+  margin-top: 1.2rem;
+}
+
+.info-negocio-form label {
+  font-size: 1.08rem;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.info-negocio-form input,
+.info-negocio-form select {
+  padding: 0.85rem 1.1rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  background: #f7f7f7;
+  color: #222;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.info-negocio-form input:focus,
+.info-negocio-form select:focus {
+  border: 1.5px solid #d32f2f;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(211,47,47,0.08);
+}
+
+.guardar-derecha {
+  margin-top: 40px;
+  display: flex;
+  gap: 28px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.btn-guardar-negocio, .btn-editar-negocio {
+  font-size: 1.13rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.7rem 2.2rem;
+  box-shadow: 0 2px 8px rgba(25,118,210,0.08);
+  border: none;
+}
+
+.btn-guardar-negocio {
+  background: #1976d2;
+  color: #fff;
+  margin-right: 8px;
+}
+
+.btn-editar-negocio {
+  background: #d32f2f;
+  color: #fff;
+}
+
+.btn-editar-negocio-solo {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  z-index: 2;
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.13rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(211,47,47,0.08);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.btn-editar-negocio-solo:hover {
+  background: #b71c1c;
+}
+
+.info-negocio-header-solo-boton {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.logo-nombre-negocio {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-nombre-negocio-solo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.logo-preview-grande {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  width: 140px;
+  height: 140px;
+  background: #f7f7f7;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #0001;
+  overflow: hidden;
+}
+
+.logo-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.logo-placeholder {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e0e0;
+  color: #aaa;
+  font-size: 1.2rem;
+  border-radius: 50%;
+}
+
+.logo-preview-max {
+  width: 260px;
+  height: 260px;
+  max-width: 90vw;
+  max-height: 40vh;
+  margin: 0 auto 1.2rem auto;
+  background: #f7f7f7;
+  border-radius: 50%;
+  box-shadow: 0 2px 16px #0001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.logo-img-max {
+  width: 220px;
+  height: 220px;
+  max-width: 80vw;
+  max-height: 36vh;
+  border-radius: 50%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  background: #fff;
+}
+.logo-placeholder-max {
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e0e0;
+  color: #aaa;
+  font-size: 2rem;
+  border-radius: 50%;
+}
+
+.nombre-negocio-centrado {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin: 0 0 1.2rem 0;
+  color: #222;
+  letter-spacing: 0.5px;
+}
+
+/* Modal estilos básicos */
+.modal-editar-negocio-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-editar-negocio-panel {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  min-width: 340px;
+  max-width: 1280px;
+  width: 98vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #d32f2f;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.info-negocio-form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 40px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.info-negocio-form-grid-2col .info-negocio-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.logo-preview-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem auto 0 auto;
+  width: 140px;
+  height: 140px;
+  background: #f7f7f7;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #0001;
+  overflow: hidden;
+}
+.logo-preview-modal img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.info-negocio-form-grid-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px 40px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.info-negocio-form-grid-3col .info-negocio-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modal-editar-negocio-panel-scroll {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-guardar {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-top: 32px !important;
+  grid-column: 1 / -1 !important;
+}
+
+@media (max-width: 900px) {
+  .info-negocio-form-panel {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    border-radius: 12px;
+  }
+  .info-negocio-form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    width: 100%;
+    max-width: 100vw;
+  }
+  .info-negocio-col {
+    gap: 1rem;
+  }
+  .guardar-derecha {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    width: 100%;
+  }
+  .info-negocio-form-grid-2col {
+    grid-template-columns: 1fr;
+    gap: 18px 0;
+    max-width: 98vw;
+  }
+}
+@media (max-width: 600px) {
+  .info-negocio-panel-centrado {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .btn-editar-negocio-solo {
+    right: 10px;
+    top: 10px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+  }
+  .logo-preview-grande {
+    width: 90px;
+    height: 90px;
+  }
+  .logo-img, .logo-placeholder {
+    width: 80px;
+    height: 80px;
+    font-size: 1rem;
+  }
+  .logo-nombre-negocio-solo {
+    margin-top: 40px;
+  }
+  .nombre-negocio-centrado {
+    font-size: 1.2rem;
+  }
+  .modal-editar-negocio-panel {
+    min-width: 0;
+    max-width: 99vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+}
+@media (max-width: 1100px) {
+  .info-negocio-form-grid-3col {
+    grid-template-columns: 1fr 1fr;
+    max-width: 98vw;
+    gap: 24px 18px;
+  }
+}
+@media (max-width: 700px) {
+  .info-negocio-form-grid-3col {
+    grid-template-columns: 1fr;
+    gap: 16px 0;
+    max-width: 99vw;
+  }
+  .logo-preview-modal {
+    width: 90px;
+    height: 90px;
+  }
+  .logo-preview-modal img {
+    width: 70px;
+    height: 70px;
+  }
+}
+@media (max-width: 1280px) {
+  .modal-editar-negocio-panel {
+    max-width: 99vw;
+  }
+  .info-negocio-form-grid-3col {
+    max-width: 99vw;
+  }
+}

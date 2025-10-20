@@ -1,0 +1,197 @@
+/* POSPedidoMesa.css actualizado */
+:root {
+  --color-primario: #3f51b5;
+  --color-secundario: #607d8b;
+  --color-correcto: #43a047;
+  --color-error: tomato;
+  --color-fondo: #f4f6f8;
+  --color-blanco: #fff;
+  --color-borde: #ddd;
+  --color-texto: #333;
+  --espaciado-chico: 0.5rem;
+  --espaciado-mediano: 1rem;
+  --espaciado-grande: 2rem;
+  --radio-suave: 8px;
+  --sombra-suave: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Layout general */
+.pos-layout {
+  display: flex;
+  flex-direction: row;
+  gap: var(--espaciado-grande);
+  padding: var(--espaciado-grande);
+  background: var(--color-fondo);
+  min-height: 100vh;
+  flex-wrap: wrap;
+}
+
+/* Panel de productos */
+.productos-layout {
+  flex: 2;
+  min-width: 300px;
+}
+
+.categorias-bar {
+  display: flex;
+  gap: var(--espaciado-chico);
+  margin: var(--espaciado-mediano) 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.categorias-bar button {
+  background: var(--color-secundario);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.categorias-bar button:active {
+  transform: scale(0.95);
+}
+
+.categorias-bar .activa {
+  background: var(--color-primario);
+}
+
+/* Vista táctil optimizada */
+.grilla-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--espaciado-mediano);
+}
+
+.card-prod {
+  background: var(--color-blanco);
+  padding: var(--espaciado-mediano);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+  text-align: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.card-prod:active {
+  transform: scale(0.97);
+  background: #eef1f4;
+}
+
+.card-prod h4 {
+  margin-bottom: var(--espaciado-chico);
+  font-size: 1.1rem;
+  color: var(--color-texto);
+}
+
+.card-prod span {
+  font-weight: bold;
+  color: var(--color-secundario);
+  font-size: 1.1rem;
+}
+
+/* Panel lateral del pedido */
+.carrito-layout {
+  flex: 1.2;
+  min-width: 280px;
+  background: var(--color-blanco);
+  padding: var(--espaciado-grande);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+}
+
+.item-carrito {
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: var(--espaciado-mediano);
+  margin-bottom: var(--espaciado-mediano);
+}
+
+.controles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--espaciado-chico);
+  margin-top: var(--espaciado-chico);
+  align-items: center;
+}
+
+.controles label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.controles input {
+  padding: 0.4rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-suave);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.subtotal {
+  text-align: right;
+  font-weight: bold;
+  color: var(--color-texto);
+  margin-top: 0.5rem;
+}
+
+.checkboxes {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--espaciado-chico) 0;
+  font-size: 0.85rem;
+}
+
+.checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.item-carrito button {
+  background: var(--color-error);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  margin-top: var(--espaciado-chico);
+}
+
+.total-pedido {
+  font-size: 1.3rem;
+  text-align: right;
+  margin-top: var(--espaciado-grande);
+  font-weight: bold;
+}
+
+.btn-confirmar {
+  background: var(--color-correcto);
+  color: white;
+  padding: var(--espaciado-mediano);
+  border: none;
+  border-radius: var(--radio-suave);
+  font-weight: bold;
+  width: 100%;
+  margin-top: var(--espaciado-mediano);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-confirmar:hover {
+  background: #388e3c;
+}
+
+.mensaje-vacio {
+  font-size: 1rem;
+  color: var(--color-error);
+  text-align: center;
+  margin-top: var(--espaciado-mediano);
+}

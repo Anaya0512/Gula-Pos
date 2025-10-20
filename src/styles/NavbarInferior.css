@@ -1,0 +1,136 @@
+/* Submenu de inventario igual a productos */
+.ventana-submenu.grupo-inventario {
+  border-left: 4px solid var(--color-productos);
+  background: var(--navbar-hover-bg);
+}
+@media (max-width: 700px) {
+  .opciones-nav {
+    gap: 0.4rem;
+    font-size: 0.92rem;
+  }
+  .navbar-inferior {
+    padding: 0.7rem 0.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .opciones-nav {
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+  .navbar-inferior {
+    padding: 0.5rem 0.1rem;
+  }
+}
+:root {
+  --navbar-bg: #ffffff;
+  --navbar-text: #222;
+  --navbar-hover-bg: #f0f0f0;
+  --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --tamanio-menu-letra: 0.95rem;
+  --espaciado-menu: 1rem;
+
+  /* Colores por grupo */
+  --color-productos: #007aff;
+  --color-configuracion: #8e44ad;
+}
+
+/* Navbar horizontal */
+.navbar-inferior {
+  background-color: var(--navbar-bg);
+  padding: var(--espaciado-menu) 1rem;
+  font-family: system-ui, sans-serif;
+  box-shadow: var(--sombra-suave);
+  position: relative;
+  z-index: 10;
+  overflow-x: auto;
+}
+
+/* Opciones horizontales */
+.opciones-nav {
+  list-style: none;
+  display: flex;
+  gap: var(--espaciado-menu);
+  margin: 0;
+  padding: 0;
+}
+
+/* Botón principal */
+.btn-nav-grupo {
+  background: none;
+  border: none;
+  color: var(--navbar-text);
+  font-size: var(--tamanio-menu-letra);
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.btn-nav-grupo:hover {
+  background-color: var(--navbar-hover-bg);
+}
+
+/* Flecha desplegable */
+.flecha {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.opcion-con-submenu .flecha.rotada {
+  transform: rotate(180deg);
+}
+
+/* Submenu flotante externo */
+.ventana-submenu {
+  background-color: var(--navbar-bg);
+  box-shadow: var(--sombra-suave);
+  padding: 0.6rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  animation: fadeSubmenu 0.25s ease-out;
+  z-index: 9999;
+  min-width: 180px;
+}
+
+/* Estilos por grupo */
+.ventana-submenu.grupo-productos {
+  border-left: 4px solid var(--color-productos);
+}
+
+.ventana-submenu.grupo-configuracion {
+  border-left: 4px solid var(--color-configuracion);
+}
+
+/* Ítems del submenu */
+.item-submenu {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  color: var(--navbar-text);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.item-submenu:hover {
+  background-color: var(--navbar-hover-bg);
+}
+
+/* Animación */
+@keyframes fadeSubmenu {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,20 @@
+:root {
+  --fondo-app: #ffffff;
+  --color-texto: #000000;
+  --color-acento: #007aff;
+}
+
+body {
+  background-color: var(--fondo-app);
+  color: var(--color-texto);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+button {
+  background-color: var(--color-acento);
+  color: var(--color-texto);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}

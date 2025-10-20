@@ -1,0 +1,102 @@
+.proveedores-admin {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--fondo-principal);
+  color: var(--letra-principal);
+}
+
+.formulario-container {
+  background-color: var(--ventana-bg);
+  padding: 1.5rem;
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+  margin-bottom: 2rem;
+}
+
+.formulario-proveedor label {
+  font-weight: bold;
+  color: var(--letra-principal);
+}
+
+.formulario-proveedor input[type="text"],
+.formulario-proveedor input[type="file"] {
+  padding: 0.5rem;
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  background-color: var(--fondo-secundario);
+  color: var(--letra-principal);
+}
+
+.preview {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  border-radius: var(--radio-suave);
+  border: 1px solid var(--ventana-borde);
+  background-color: var(--fondo-secundario);
+}
+
+.formulario-proveedor button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.75rem;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.formulario-proveedor button:hover {
+  background: var(--navbar-hover-bg);
+}
+
+.lista-proveedores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.proveedor-card {
+  background-color: var(--ventana-bg);
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: var(--sombra-suave);
+}
+
+.proveedor-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--btn-bg);
+  margin: 0 auto;
+}
+
+.proveedor-card h4 {
+  color: var(--letra-principal);
+  margin: 0.5rem 0;
+}
+
+.proveedor-card p {
+  color: var(--letra-secundaria);
+  font-size: 0.9rem;
+}
+
+.proveedor-card button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0.25rem;
+  transition: background 0.2s ease;
+}
+
+.proveedor-card button:hover {
+  background: var(--navbar-hover-bg);
+}

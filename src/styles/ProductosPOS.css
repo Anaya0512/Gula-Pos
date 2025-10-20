@@ -1,0 +1,81 @@
+.pos-container {
+  padding: 2rem;
+  background-color: var(--fondo-principal);
+  font-family: system-ui, sans-serif;
+  color: var(--letra-principal);
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.producto-card {
+  background: var(--ventana-bg);
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: var(--sombra-suave);
+}
+
+.producto-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radio-suave);
+}
+
+.producto-card h3 {
+  margin: 0.5rem 0;
+  color: var(--letra-principal);
+}
+
+.producto-card button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.5rem;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: var(--ventana-bg);
+  padding: 2rem;
+  border-radius: var(--radio-suave);
+  width: 300px;
+  text-align: center;
+  color: var(--letra-principal);
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  background-color: var(--fondo-secundario);
+}
+
+.carrito {
+  margin-top: 2rem;
+  background: var(--ventana-bg);
+  padding: 1rem;
+  border-radius: var(--radio-suave);
+}

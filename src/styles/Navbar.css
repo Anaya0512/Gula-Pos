@@ -1,0 +1,11 @@
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.usuario {
+  font-weight: bold;
+  color: var(--navbar-text);
+}
+

@@ -1,0 +1,56 @@
+.configuracion-negocio {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--ventana-bg);
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+  color: var(--letra-principal);
+}
+
+.configuracion-negocio h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--letra-principal);
+}
+
+.formulario-negocio label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: var(--letra-principal);
+}
+
+.formulario-negocio input[type="text"],
+.formulario-negocio input[type="number"],
+.formulario-negocio input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  background-color: var(--fondo-secundario);
+  color: var(--letra-principal);
+}
+
+.logo-preview {
+  margin-top: 1rem;
+  max-width: 200px;
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+}
+
+.formulario-negocio button {
+  margin-top: 2rem;
+  padding: 0.7rem 1.5rem;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.formulario-negocio button:hover {
+  background-color: var(--navbar-hover-bg);
+}

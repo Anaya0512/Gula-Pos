@@ -1,0 +1,50 @@
+.ventas-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--fondo-principal);
+  color: var(--letra-principal);
+}
+
+.ventas-container h2 {
+  margin-bottom: 1rem;
+  color: var(--letra-principal);
+}
+
+.ventas-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 400px;
+  background: var(--ventana-bg);
+  padding: 1.5rem;
+  border-radius: var(--radio-suave);
+  box-shadow: var(--sombra-suave);
+}
+
+.ventas-form input {
+  padding: 0.5rem;
+  border: 1px solid var(--ventana-borde);
+  border-radius: var(--radio-suave);
+  background-color: var(--fondo-secundario);
+  color: var(--letra-principal);
+}
+
+.ventas-form button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.75rem;
+  border-radius: var(--radio-suave);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.ventas-form button:hover {
+  background: var(--navbar-hover-bg);
+}
+
+.mensaje {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: var(--letra-principal);
+}

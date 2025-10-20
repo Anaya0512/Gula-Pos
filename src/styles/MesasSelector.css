@@ -1,0 +1,113 @@
+/* Estado en la parte inferior derecha de la tarjeta */
+.mesa-admin-actions-icons {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding-right: 2px;
+}
+
+.mesas-selector-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 32px 24px;
+}
+.mesas-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+ .mesa-selector-btn {
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  min-width: 160px;
+  height: 120px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+  position: relative;
+}
+
+.mesa-barra-estado {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 22px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  z-index: 30;
+}
+.mesa-barra-estado.disponible {
+  background: #00c853;
+}
+.mesa-barra-estado.ocupada {
+  background: #f44336;
+}
+.mesa-barra-estado.reservada {
+  background: #ff9800;
+}
+.mesa-selector-estado {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  color: #333;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 0;
+  padding: 4px 2px 2px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 20;
+}
+.mesa-bar.disponible { background: #00c853; }
+.mesa-content {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+.mesa-name {
+  font-weight: 700;
+  font-size: 1.25em;
+  margin-bottom: 10px;
+  color: #222;
+  text-align: left;
+  position: absolute;
+  top: 12px;
+  left: 16px;
+}
+.mesa-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-weight: 600;
+}
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.status-dot.ocupada { background: #d50000; }
+.status-dot.disponible { background: #00c853; }
+.mesa-venta-info { margin-top: 6px; color: #444; font-weight:600 }
