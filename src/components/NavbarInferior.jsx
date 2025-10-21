@@ -91,7 +91,7 @@ export default function NavbarInferior() {
           { nombre: "📑 Historial de movimientos", ruta: "/inventario/movimientos" },
           { nombre: "➕ Registrar movimiento", ruta: "/inventario/registro" },
           { nombre: "� Registrar pedido a proveedor", ruta: "/inventario/pedido-proveedor" },
-          { nombre: "�🗂️ Ver inventario", ruta: "/productos/inventario" },
+          { nombre: "🗂️ Ver inventario", ruta: "/inventario/ver" },
         ]
       },
       { nombre: "🗂️ Categorías", ruta: "/productos/categorias" },

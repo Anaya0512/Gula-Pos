@@ -9,6 +9,7 @@ import InventarioAdmin from "../pages/InventarioAdmin";
 import InventarioMovimientos from "../pages/InventarioMovimientos";
 import InventarioRegistroMovimiento from "../pages/InventarioRegistroMovimiento";
 import InventarioPedidoProveedor from "../pages/InventarioPedidoProveedor";
+import InventarioVer from "../pages/InventarioVer";
 import CategoriasAdmin from "../pages/CategoriasAdmin";
 import ProveedoresAdmin from "../pages/ProveedoresAdmin";
 import Nomina from "../pages/Nomina";
@@ -52,6 +53,7 @@ export default function AppRouter() {
 					<Route path="/mesa/:id" element={<MesaPedido />} />
 					<Route path="/productos" element={<ProductosAdmin />} />
 					  <Route path="/productos/inventario" element={<InventarioAdmin />} />
+					  <Route path="/inventario/ver" element={<InventarioVer />} />
 					  <Route path="/inventario/movimientos" element={<InventarioMovimientos />} />
 					  <Route path="/inventario/registro" element={<InventarioRegistroMovimiento />} />
 					  <Route path="/inventario/pedido-proveedor" element={<InventarioPedidoProveedor />} />
