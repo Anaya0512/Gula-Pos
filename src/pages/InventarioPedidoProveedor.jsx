@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import { obtenerInfoUsuario } from "../utils/usuarioActual";
 import "../styles/InventarioPedidoProveedor.css";
 // Imagen por defecto para proveedores
 const IMAGEN_PROVEEDOR_DEFAULT = "https://kxymgcmgjlakgtzhfden.supabase.co/storage/v1/object/public/imagenes/proveedor-1759852335508.png";
@@ -25,7 +26,7 @@ export default function InventarioPedidoProveedor() {
     setProveedores(data || []);
   };
   const cargarProductos = async () => {
-    const { data } = await supabase.from("productos").select("id, nombre, stock");
+    const { data } = await supabase.from("productos_con_stock").select("id, nombre, stock_actual");
     setProductos(data || []);
   };
 
@@ -56,13 +57,19 @@ export default function InventarioPedidoProveedor() {
       setError("Selecciona proveedor y agrega al menos un producto.");
       return;
     }
+    // Obtener usuario actual
+    const usuario = await obtenerInfoUsuario();
+    if (!usuario.id) {
+      setError("No se pudo obtener el usuario actual. Inicia sesión nuevamente.");
+      return;
+    }
     // Registrar movimientos en inventario_movimientos
     let errorMov = null;
     for (const item of carrito) {
-      // Obtener stock actual
-      const { data: prod } = await supabase.from("productos").select("stock").eq("id", item.producto_id).single();
-      const stock_antes = prod?.stock ?? 0;
-      const stock_despues = stock_antes + item.cantidad;
+  // Obtener stock actual
+  const { data: prod } = await supabase.from("productos_con_stock").select("stock_actual").eq("id", item.producto_id).single();
+  const stock_antes = prod?.stock_actual ?? 0;
+  const stock_despues = stock_antes + item.cantidad;
       const { error: movError } = await supabase.from("inventario_movimientos").insert([
         {
           producto_id: item.producto_id,
@@ -73,12 +80,11 @@ export default function InventarioPedidoProveedor() {
           stock_despues,
           motivo: item.motivo,
           fecha: new Date().toISOString(),
-          usuario_id: null // Asignar usuario si tienes auth
+          usuario_id: usuario.id
         }
       ]);
       if (movError) errorMov = movError;
-      // Actualizar stock
-      await supabase.from("productos").update({ stock: stock_despues }).eq("id", item.producto_id);
+  // Ya no se actualiza el stock en productos, se calcula dinámicamente
     }
     if (errorMov) {
       setError("Error al registrar movimientos: " + errorMov.message);

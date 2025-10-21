@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ImagenProductoConPlaceholder from "./ImagenProductoConPlaceholder";
 import NotificacionFlotante from "../../components/NotificacionFlotante";
 import { useParams } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
@@ -58,20 +59,41 @@ export default function MesaPedido() {
           let productosExtra = [];
           if (idsFaltantes.length > 0) {
             const { data: extra } = await supabase
-              .from("productos")
-              .select("id, nombre, imagen_url")
+              .from("productos_con_stock")
+              .select("id, nombre, imagen_url, stock_actual")
               .in("id", idsFaltantes);
             productosExtra = extra || [];
           }
+          // Si aún falta algún producto, consultarlo directamente
+          let faltantes = detalles.filter(d => {
+            let prod = productos.find(p => p.id === d.producto_id) || productosExtra.find(p => p.id === d.producto_id);
+            return !prod || !prod.imagen_url;
+          }).map(d => d.producto_id);
+
+          let productosDirectos = [];
+          if (faltantes.length > 0) {
+            // Solo consultar si faltantes tiene al menos un ID válido
+            const idsValidos = faltantes.filter(Boolean);
+            if (idsValidos.length > 0) {
+              const { data: directos } = await supabase
+                .from("productos_con_stock")
+                .select("id, nombre, imagen_url, stock_actual")
+                .in("id", idsValidos);
+              productosDirectos = directos || [];
+            }
+          }
+
           const carritoInicial = detalles.map(d => {
-            let prod = productos.find(p => p.id === d.producto_id);
-            if (!prod) prod = productosExtra.find(p => p.id === d.producto_id) || {};
+            let prod = productos.find(p => p.id === d.producto_id)
+              || productosExtra.find(p => p.id === d.producto_id)
+              || productosDirectos.find(p => p.id === d.producto_id)
+              || {};
             return {
               id: d.producto_id,
               nombre: prod.nombre || "",
               precio: d.precio_unitario,
               cantidad: d.cantidad,
-              imagen_url: prod.imagen_url || ""
+              imagen_url: prod.imagen_url || "https://via.placeholder.com/80x80?text=Sin+imagen"
             };
           });
           setCarrito(carritoInicial);
@@ -98,7 +120,7 @@ export default function MesaPedido() {
 
   const fetchData = async () => {
     const { data: categoriasData } = await supabase.from("categorias").select("*").eq("activo", true);
-    const { data: productosData } = await supabase.from("productos").select("*").eq("activo", true);
+    const { data: productosData } = await supabase.from("productos_con_stock").select("*").eq("activo", true);
     setCategorias(categoriasData || []);
     setProductos(productosData || []);
     setCategoriaSeleccionada((categoriasData && categoriasData[0]?.id) || null);
@@ -126,10 +148,6 @@ export default function MesaPedido() {
     setCarritoGuardado(false);
   };
 
-  const eliminarDelCarrito = (idProducto) => {
-    setCarrito((prev) => prev.filter((item) => item.id !== idProducto));
-  setCarritoGuardado(false);
-  };
 
   const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
@@ -230,26 +248,23 @@ export default function MesaPedido() {
             <p>No hay productos en esta categoría.</p>
           )}
           {productos.filter((prod) => prod.categoria_id === categoriaSeleccionada).map((prod) => (
-            <div
-              key={prod.id}
-              className="producto-card compact clickable"
-              onClick={() => agregarAlCarrito(prod)}
-              tabIndex={0}
-              role="button"
-              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') agregarAlCarrito(prod); }}
-            >
-              {prod.imagen_url && (
-                <img
-                  src={prod.imagen_url}
-                  alt={prod.nombre}
-                  className="producto-img-pequena"
-                />
-              )}
-              <div className="producto-nombre-precio">
-                <span className="producto-nombre">{prod.nombre}</span>
-                <span className="producto-precio">${prod.precio}</span>
+            <React.Fragment key={prod.id}>
+              <div
+                className="producto-card compacto-mini clickable"
+                onClick={() => agregarAlCarrito(prod)}
+                tabIndex={0}
+                role="button"
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') agregarAlCarrito(prod); }}
+              >
+                <div className="producto-imagen-wrapper mini">
+                  <ImagenProductoConPlaceholder imagen_url={prod.imagen_url} nombre={prod.nombre} className="imagen-redonda" />
+                </div>
+                <div className="producto-info-wrapper mini">
+                  <div className="producto-nombre-mini">{prod.nombre}</div>
+                  <div className="producto-precio-mini">${prod.precio}</div>
+                </div>
               </div>
-            </div>
+            </React.Fragment>
           ))}
         </div>
       </div>
@@ -257,15 +272,24 @@ export default function MesaPedido() {
         <h3>Carrito</h3>
         {carrito.length === 0 && <div className="carrito-vacio">Sin productos</div>}
         <div className="carrito-items-lista">
+        <div className="carrito-items-header">
+          <div className="carrito-header-nombre">Producto</div>
+          <div className="carrito-header-precio">Valor</div>
+          <div className="carrito-header-cantidad">Cantidad</div>
+        </div>
           {carrito.map((item) => (
             <div key={item.id} className="carrito-item compacto">
               <div className="carrito-item-info">
                 <span className="carrito-item-nombre">{item.nombre}</span>
-                <span className="carrito-item-precio">${(item.precio * item.cantidad).toLocaleString('es-CO')}</span>
               </div>
-              <div className="carrito-item-controles centrado">
+              <span className="carrito-item-precio derecha">${(item.precio * item.cantidad).toLocaleString('es-CO')}</span>
+              <div className="carrito-item-controles derecha">
                 <button className="carrito-cantidad-btn" onClick={() => {
-                  setCarrito((prev) => prev.map((prod) => prod.id === item.id && prod.cantidad > 1 ? { ...prod, cantidad: prod.cantidad - 1 } : prod));
+                  setCarrito((prev) => {
+                    const updated = prev.map((prod) => prod.id === item.id ? { ...prod, cantidad: prod.cantidad - 1 } : prod)
+                                      .filter(p => p.cantidad > 0);
+                    return updated;
+                  });
                   setCarritoGuardado(false);
                 }}>-</button>
                 <span className="carrito-cantidad">{item.cantidad}</span>
@@ -273,9 +297,6 @@ export default function MesaPedido() {
                   setCarrito((prev) => prev.map((prod) => prod.id === item.id ? { ...prod, cantidad: prod.cantidad + 1 } : prod));
                   setCarritoGuardado(false);
                 }}>+</button>
-                <button className="carrito-eliminar-btn" onClick={() => eliminarDelCarrito(item.id)}>
-                  ✕
-                </button>
               </div>
             </div>
           ))}

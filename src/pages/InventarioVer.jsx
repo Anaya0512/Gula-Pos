@@ -45,7 +45,7 @@ export default function InventarioVer() {
 
   const cargarDatos = async () => {
     const [{ data: productosData }, { data: categoriasData }, { data: proveedoresData }] = await Promise.all([
-      supabase.from("productos").select("*"),
+      supabase.from("productos_con_stock").select("*"),
       supabase.from("categorias").select("*"),
       supabase.from("proveedores").select("*"),
     ]);
@@ -60,7 +60,7 @@ export default function InventarioVer() {
     const coincideCategoria = categoriaFiltro ? prod.categoria_id === categoriaFiltro : true;
     const coincideProveedor = proveedorFiltro ? prod.proveedor_id === proveedorFiltro : true;
     const coincideEstado = estadoFiltro === '' ? true : (estadoFiltro === 'activo' ? prod.activo : !prod.activo);
-    const coincideStock = stockBajo ? (prod.stock !== undefined && prod.stock_minimo !== undefined && Number(prod.stock) <= Number(prod.stock_minimo)) : true;
+  const coincideStock = stockBajo ? (prod.stock_actual !== undefined && prod.stock_minimo !== undefined && Number(prod.stock_actual) <= Number(prod.stock_minimo)) : true;
     const coincideMovimientos = movimientosFiltro === '' ? true : (
       movimientosFiltro === 'con' ? (Array.isArray(prod.movimientos) ? prod.movimientos.length > 0 : Number(prod.movimientos) > 0)
       : (Array.isArray(prod.movimientos) ? prod.movimientos.length === 0 : !prod.movimientos || Number(prod.movimientos) === 0)
@@ -174,9 +174,9 @@ export default function InventarioVer() {
                 <td>{prod.nombre}</td>
                 <td>{categoria ? categoria.nombre : "-"}</td>
                 <td>{proveedor ? proveedor.nombre : "-"}</td>
-                <td>{prod.stock ?? 0}</td>
-                <td>${prod.precio ?? '-'}</td>
-                <td>${prod.valor_compra ?? '-'}</td>
+                <td>{prod.stock_actual ?? 0}</td>
+                <td>${prod.precio !== undefined && prod.precio !== null ? prod.precio : '-'}</td>
+                <td>${prod.valor_compra !== undefined && prod.valor_compra !== null ? prod.valor_compra : '-'}</td>
                 <td>
                   <span style={{
                     background: prod.activo ? '#00c853' : '#d50000',
@@ -186,7 +186,7 @@ export default function InventarioVer() {
                     fontWeight: 'bold',
                   }}>{prod.activo ? 'Activo' : 'Inactivo'}</span>
                 </td>
-                <td>{Array.isArray(prod.movimientos) ? prod.movimientos.length : (prod.movimientos ?? 0)}</td>
+                <td>-</td>
                 <td>{prod.created_at ? new Date(prod.created_at).toLocaleDateString() : "-"}</td>
                 <td>{prod.updated_at ? new Date(prod.updated_at).toLocaleDateString() : "-"}</td>
                 <td>{prod.stock_minimo ?? '-'}</td>

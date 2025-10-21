@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { supabase } from "../supabase/client";
+import { supabase } from "../lib/supabaseClient";
 
 const AuthContext = createContext();
 
@@ -14,12 +14,31 @@ export function AuthProvider({ children }) {
       const user = session?.user;
       setUsuario(user);
 
+
       if (user) {
-        const { data } = await supabase
+        // Buscar usuario en la tabla usuarios
+        let { data } = await supabase
           .from("usuarios")
           .select("*")
           .eq("id", user.id)
           .single();
+        // Si no existe, crearlo automáticamente
+        if (!data) {
+          const { data: insertData } = await supabase
+            .from("usuarios")
+            .insert([
+              {
+                id: user.id,
+                nombre: user.user_metadata?.full_name || user.user_metadata?.name || user.email || "Sin nombre",
+                correo: user.email,
+                rol: "usuario",
+                active: true
+              }
+            ])
+            .select()
+            .single();
+          data = insertData;
+        }
         setPerfil(data);
       }
 
@@ -34,11 +53,29 @@ export function AuthProvider({ children }) {
         setUsuario(user);
 
         if (user) {
-          const { data } = await supabase
+          // Buscar usuario en la tabla usuarios
+          let { data } = await supabase
             .from("usuarios")
             .select("*")
             .eq("id", user.id)
             .single();
+          // Si no existe, crearlo automáticamente
+          if (!data) {
+            const { data: insertData } = await supabase
+              .from("usuarios")
+              .insert([
+                {
+                  id: user.id,
+                  nombre: user.user_metadata?.full_name || user.user_metadata?.name || user.email || "Sin nombre",
+                  correo: user.email,
+                  rol: "usuario",
+                  active: true
+                }
+              ])
+              .select()
+              .single();
+            data = insertData;
+          }
           setPerfil(data);
         } else {
           setPerfil(null);

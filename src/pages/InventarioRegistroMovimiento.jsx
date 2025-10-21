@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import { obtenerInfoUsuario } from "../utils/usuarioActual";
 import "../styles/InventarioRegistroMovimiento.css";
 const IMAGEN_PROVEEDOR_DEFAULT = "https://kxymgcmgjlakgtzhfden.supabase.co/storage/v1/object/public/imagenes/proveedor-1759852335508.png";
 
@@ -45,14 +46,18 @@ export default function InventarioRegistroMovimiento() {
   }, [form.producto_id]);
 
   const cargarProductos = async () => {
-    const { data, error, status, statusText } = await supabase.from("productos").select("id, nombre, stock");
+    // Traer también valor_compra y solo productos activos
+    const { data, error, status, statusText } = await supabase
+      .from("productos_con_stock")
+      .select("id, nombre, stock_actual, valor_compra, activo")
+      .eq("activo", true);
     console.log("Productos response:", { data, error, status, statusText });
     setProductos(data || []);
   };
 
   const obtenerStockActual = async (producto_id) => {
-    const { data } = await supabase.from("productos").select("stock").eq("id", producto_id).single();
-    setStockActual(data?.stock ?? null);
+    const { data } = await supabase.from("productos_con_stock").select("stock_actual").eq("id", producto_id).single();
+    setStockActual(data?.stock_actual ?? null);
   };
 
   const handleChange = e => {
@@ -77,10 +82,20 @@ export default function InventarioRegistroMovimiento() {
       setError("No hay suficiente stock para realizar la salida.");
       return;
     }
+    // Obtener usuario actual
+    const usuario = await obtenerInfoUsuario();
+    if (!usuario.id) {
+      setError("No se pudo obtener el usuario actual. Inicia sesión nuevamente.");
+      return;
+    }
     // Registrar movimiento en inventario_movimientos
-    const stock_antes = stockActual;
-    const cantidad = Number(form.cantidad);
-    const stock_despues = form.tipo === "entrada" ? stock_antes + cantidad : stock_antes - cantidad;
+  const stock_antes = stockActual;
+  const cantidad = Number(form.cantidad);
+  const stock_despues = form.tipo === "entrada" ? stock_antes + cantidad : stock_antes - cantidad;
+    // Obtener valor_compra del producto seleccionado
+    let valor_compra = null;
+    const productoSel = productos.find(p => p.id === form.producto_id);
+    valor_compra = productoSel?.valor_compra ?? null;
     const { error: movError } = await supabase.from("inventario_movimientos").insert([
       {
         producto_id: form.producto_id,
@@ -91,19 +106,15 @@ export default function InventarioRegistroMovimiento() {
         stock_despues,
         motivo: form.motivo,
         fecha: new Date().toISOString(),
-        usuario_id: null // Asignar usuario si tienes auth
+        usuario_id: usuario.id,
+        valor_compra: form.tipo === "entrada" ? valor_compra : null
       }
     ]);
     if (movError) {
       setError("Error al registrar movimiento: " + movError.message);
       return;
     }
-    // Actualizar stock en productos
-    const { error: prodError } = await supabase.from("productos").update({ stock: stock_despues }).eq("id", form.producto_id);
-    if (prodError) {
-      setError("Error al actualizar stock: " + prodError.message);
-      return;
-    }
+    // Ya no se actualiza el stock en productos, se calcula dinámicamente
     setSuccess("Movimiento registrado correctamente.");
     setForm({ producto_id: "", proveedor_id: "", tipo: "entrada", cantidad: "", motivo: "" });
     setStockActual(null);
