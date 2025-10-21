@@ -186,7 +186,7 @@ export default function InventarioVer() {
                     fontWeight: 'bold',
                   }}>{prod.activo ? 'Activo' : 'Inactivo'}</span>
                 </td>
-                <td>-</td>
+                <td>{prod.movimientos ?? 0}</td>
                 <td>{prod.created_at ? new Date(prod.created_at).toLocaleDateString() : "-"}</td>
                 <td>{prod.updated_at ? new Date(prod.updated_at).toLocaleDateString() : "-"}</td>
                 <td>{prod.stock_minimo ?? '-'}</td>

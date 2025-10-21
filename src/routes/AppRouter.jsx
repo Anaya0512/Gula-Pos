@@ -1,3 +1,7 @@
+import ContabilidadGastos from "../pages/ContabilidadGastos";
+import ContabilidadTipoGastos from "../pages/ContabilidadTipoGastos";
+import ContabilidadCreditosClientes from "../pages/ContabilidadCreditosClientes";
+import ContabilidadInformes from "../pages/ContabilidadInformes";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavbarInferior from "../components/NavbarInferior";
@@ -45,19 +49,23 @@ export default function AppRouter() {
 			<Router>
 				{currentPath !== "/login" && <NavbarSuperior />}
 				{currentPath !== "/login" && <NavbarInferior />}
-				<Routes>
-					<Route path="/login" element={<Login />} />
-					<Route path="/" element={<Dashboard />} />
-					<Route path="/mesas" element={<MesasSelector />} />
-					<Route path="/mesas/admin" element={<MesasAdmin />} />
-					<Route path="/mesa/:id" element={<MesaPedido />} />
-					<Route path="/productos" element={<ProductosAdmin />} />
-					  <Route path="/productos/inventario" element={<InventarioAdmin />} />
-					  <Route path="/inventario/ver" element={<InventarioVer />} />
-					  <Route path="/inventario/movimientos" element={<InventarioMovimientos />} />
-					  <Route path="/inventario/registro" element={<InventarioRegistroMovimiento />} />
-					  <Route path="/inventario/pedido-proveedor" element={<InventarioPedidoProveedor />} />
-					<Route path="/productos/categorias" element={<CategoriasAdmin />} />
+								<Routes>
+										<Route path="/login" element={<Login />} />
+										<Route path="/" element={<Dashboard />} />
+										<Route path="/mesas" element={<MesasSelector />} />
+										<Route path="/mesas/admin" element={<MesasAdmin />} />
+										<Route path="/mesa/:id" element={<MesaPedido />} />
+										<Route path="/productos" element={<ProductosAdmin />} />
+										<Route path="/productos/inventario" element={<InventarioAdmin />} />
+										<Route path="/inventario/ver" element={<InventarioVer />} />
+										<Route path="/inventario/movimientos" element={<InventarioMovimientos />} />
+										<Route path="/inventario/registro" element={<InventarioRegistroMovimiento />} />
+										<Route path="/inventario/pedido-proveedor" element={<InventarioPedidoProveedor />} />
+										<Route path="/productos/categorias" element={<CategoriasAdmin />} />
+										<Route path="/contabilidad/gastos" element={<ContabilidadGastos />} />
+										<Route path="/contabilidad/tipo-gastos" element={<ContabilidadTipoGastos />} />
+										<Route path="/contabilidad/creditos-clientes" element={<ContabilidadCreditosClientes />} />
+										<Route path="/contabilidad/informes" element={<ContabilidadInformes />} />
 					<Route path="/proveedores-admin" element={<ProveedoresAdmin />} />
 					<Route path="/nomina" element={<Nomina />} />
 					<Route path="/estadisticas" element={<Estadisticas />} />

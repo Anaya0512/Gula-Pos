@@ -136,7 +136,8 @@ export default function InventarioRegistroMovimiento() {
           <label>Tipo</label>
           <select name="tipo" value={form.tipo} onChange={handleChange} required>
             <option value="entrada">Entrada</option>
-            <option value="salida">Salida</option>
+            <option value="baja">Baja</option>
+            <option value="consumo">Consumo</option>
           </select>
         </div>
         {form.tipo === "entrada" && (

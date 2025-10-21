@@ -129,10 +129,17 @@ export default function MesaPedido() {
   useEffect(() => {
     fetchMesa();
     fetchData();
-    fetchPedido();
-    // Las funciones no cambian, solo el id
+    // Espera a que los productos se carguen antes de llamar a fetchPedido
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  useEffect(() => {
+    // Cuando los productos cambian, vuelve a consultar el pedido para asegurar nombres correctos
+    if (productos.length > 0) {
+      fetchPedido();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productos]);
 
   // Funciones de carrito
   const agregarAlCarrito = (producto) => {
@@ -272,17 +279,17 @@ export default function MesaPedido() {
         <h3>Carrito</h3>
         {carrito.length === 0 && <div className="carrito-vacio">Sin productos</div>}
         <div className="carrito-items-lista">
-        <div className="carrito-items-header">
-          <div className="carrito-header-nombre">Producto</div>
-          <div className="carrito-header-precio">Valor</div>
-          <div className="carrito-header-cantidad">Cantidad</div>
-        </div>
+        {carrito.length > 0 && (
+          <div className="carrito-items-header">
+            <div className="carrito-header-nombre">Producto</div>
+            <div className="carrito-header-precio">Valor</div>
+            <div className="carrito-header-cantidad">Cantidad</div>
+          </div>
+        )}
           {carrito.map((item) => (
             <div key={item.id} className="carrito-item compacto">
-              <div className="carrito-item-info">
-                <span className="carrito-item-nombre">{item.nombre}</span>
-              </div>
-              <span className="carrito-item-precio derecha">${(item.precio * item.cantidad).toLocaleString('es-CO')}</span>
+              <div className="carrito-item-nombre">{item.nombre}</div>
+              <div className="carrito-item-precio derecha">${(item.precio * item.cantidad).toLocaleString('es-CO')}</div>
               <div className="carrito-item-controles derecha">
                 <button className="carrito-cantidad-btn" onClick={() => {
                   setCarrito((prev) => {

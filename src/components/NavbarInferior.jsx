@@ -43,7 +43,12 @@ export default function NavbarInferior() {
     { nombre: "🛍️ Vender", ruta: "/ventas" },
     { nombre: "📦 Ventas", ruta: "/ventas/resumen/a5f30650-028c-4233-b278-3c42e3912b2f" },
     { nombre: "Productos", desplegable: true },
-    { nombre: "📊 Contabilidad", ruta: "/contabilidad" },
+    { nombre: "📊 Contabilidad", desplegable: true, submenu: [
+      { nombre: "Gastos", ruta: "/contabilidad/gastos" },
+      { nombre: "Tipo de Gastos", ruta: "/contabilidad/tipo-gastos" },
+      { nombre: "Créditos Clientes", ruta: "/contabilidad/creditos-clientes" },
+      { nombre: "Informes", ruta: "/contabilidad/informes" }
+    ] },
     { nombre: "📈 Estadísticas", ruta: "/estadisticas" },
     { nombre: "🏢 Proveedores", ruta: "/proveedores-admin" },
     { nombre: "🧑‍💼 Nómina", ruta: "/nomina" },
@@ -54,6 +59,7 @@ export default function NavbarInferior() {
     Productos: useRef(null),
     Configuración: useRef(null),
     Inventario: useRef(null),
+    "📊 Contabilidad": useRef(null),
   };
 
   const mostrarSubmenu = (grupo) => {
@@ -66,6 +72,9 @@ export default function NavbarInferior() {
     if (ref) {
       const rect = ref.getBoundingClientRect();
       setPosicionSubmenu({ x: rect.left, y: rect.bottom });
+    } else {
+      // fallback para submenús sin referencia
+      setPosicionSubmenu({ x: 0, y: 48 });
     }
     setSubmenuVisible(grupo);
     setSubsubmenuVisible(null);
@@ -103,6 +112,12 @@ export default function NavbarInferior() {
       { nombre: "💳 Medios de pago", ruta: "/configuracion/medios-pago" },
       { nombre: "� Usuarios", ruta: "/configuracion/usuarios" },
       { nombre: "�👤 Clientes", ruta: "/configuracion/clientes" },
+    ],
+    "📊 Contabilidad": [
+      { nombre: "Gastos", ruta: "/contabilidad/gastos" },
+      { nombre: "Tipo de Gastos", ruta: "/contabilidad/tipo-gastos" },
+      { nombre: "Créditos Clientes", ruta: "/contabilidad/creditos-clientes" },
+      { nombre: "Informes", ruta: "/contabilidad/informes" },
     ],
   };
 
