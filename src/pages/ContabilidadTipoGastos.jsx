@@ -47,7 +47,7 @@ export default function ContabilidadTipoGastos() {
   };
 
   const [guardando, setGuardando] = useState(false);
-  const [mensaje, setMensaje] = useState("");
+  const [mensaje] = useState("");
 
   const guardarTiposGastos = async () => {
     setGuardando(true);

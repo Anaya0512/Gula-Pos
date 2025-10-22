@@ -10,6 +10,7 @@ export default function ProductosAdmin() {
   const [modoEdicion, setModoEdicion] = useState(null);
   const [imagenPreview, setImagenPreview] = useState(null);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [imagenFile, setImagenFile] = useState(null);
   const [buscar, setBuscar] = useState("");
   const [categoriaFiltro, setCategoriaFiltro] = useState("todos");
 
@@ -64,14 +65,20 @@ export default function ProductosAdmin() {
   };
 
   // Eliminar producto
-  const eliminarProducto = (id) => {
-    // Aquí deberías implementar la lógica real de eliminación
-    alert(`Eliminar producto con id: ${id}`);
+  const eliminarProducto = async (id) => {
+    const { error } = await supabase.from("productos").delete().eq("id", id);
+    if (error) {
+      mostrarNotificacionGlobal("Error al eliminar", "error");
+    } else {
+      mostrarNotificacionGlobal("Eliminado", "exito");
+      await cargarDatos();
+    }
   };
 
   // Manejar archivo de imagen
   const manejarArchivo = (e) => {
     const file = e.target.files[0];
+    setImagenFile(file);
     setImagenPreview(URL.createObjectURL(file));
   };
 
@@ -92,15 +99,62 @@ export default function ProductosAdmin() {
   };
 
   // Actualizar producto
-  const actualizarProducto = () => {
-    // Aquí deberías implementar la lógica real de actualización
-    alert("Producto actualizado (stub)");
+  const actualizarProducto = async () => {
+    let imagen_url = nuevoProducto.imagen_url;
+    if (imagenFile) {
+      // Subir nueva imagen si se seleccionó
+      const extension = imagenFile.name.split('.').pop();
+      const nombreArchivo = `producto-${Date.now()}.${extension}`;
+      const { error } = await supabase.storage.from("imagenes").upload(nombreArchivo, imagenFile);
+      if (error) {
+        mostrarNotificacionGlobal("Error al subir imagen", "error");
+        return;
+      }
+      // Generar URL pública manualmente
+      imagen_url = `https://kxymgcmgjlakgtzhfden.supabase.co/storage/v1/object/public/imagenes/${nombreArchivo}`;
+    }
+    const { id, ...resto } = nuevoProducto;
+    const { error } = await supabase.from("productos").update({ ...resto, imagen_url }).eq("id", id);
+    if (error) {
+      mostrarNotificacionGlobal("Error al actualizar", "error");
+    } else {
+      mostrarNotificacionGlobal("Guardado", "exito");
+      await cargarDatos();
+    }
+    resetFormulario();
   };
 
   // Agregar producto
-  const agregarProducto = () => {
-    // Aquí deberías implementar la lógica real de agregar
-    alert("Producto agregado (stub)");
+  const agregarProducto = async () => {
+    if (!imagenFile || !imagenFile.name) {
+      mostrarNotificacionGlobal("La imagen es obligatoria", "error");
+      console.log("[ERROR] No hay archivo de imagen válido", imagenFile);
+      return;
+    }
+    // Generar nombre de archivo igual al formato anterior
+    const extension = imagenFile.name.split('.').pop();
+    const nombreArchivo = `producto-${Date.now()}.${extension}`;
+    console.log("[INFO] Subiendo imagen:", nombreArchivo, imagenFile);
+    const { data, error: imgError } = await supabase.storage.from("imagenes").upload(nombreArchivo, imagenFile);
+    console.log("[RESULT] upload:", { data, imgError });
+    if (imgError) {
+      mostrarNotificacionGlobal("Error al subir imagen", "error");
+      return;
+    }
+    // Generar URL pública manualmente
+    const urlPublica = `https://kxymgcmgjlakgtzhfden.supabase.co/storage/v1/object/public/imagenes/${nombreArchivo}`;
+    console.log("[INFO] URL pública:", urlPublica);
+    const productoFinal = { ...nuevoProducto, imagen_url: urlPublica };
+    console.log("[INFO] Guardando producto en base:", productoFinal);
+    const { error } = await supabase.from("productos").insert([productoFinal]);
+    console.log("[RESULT] insert:", { error });
+    if (error) {
+      mostrarNotificacionGlobal("Error al guardar", "error");
+    } else {
+      mostrarNotificacionGlobal("Guardado", "exito");
+      await cargarDatos();
+    }
+    resetFormulario();
   };
 
 
@@ -321,22 +375,22 @@ export default function ProductosAdmin() {
                 <label>Precio venta</label>
                 <input
                   type="number"
-                  value={nuevoProducto.precio}
-                  onChange={(e) => setNuevoProducto({ ...nuevoProducto, precio: parseFloat(e.target.value) })}
+                  value={nuevoProducto.precio || ""}
+                  onChange={(e) => setNuevoProducto({ ...nuevoProducto, precio: parseFloat(e.target.value) || 0 })}
                   required
                 />
                 <label>Valor de compra</label>
                 <input
                   type="number"
-                  value={nuevoProducto.valor_compra}
-                  onChange={(e) => setNuevoProducto({ ...nuevoProducto, valor_compra: parseFloat(e.target.value) })}
+                  value={nuevoProducto.valor_compra || ""}
+                  onChange={(e) => setNuevoProducto({ ...nuevoProducto, valor_compra: parseFloat(e.target.value) || 0 })}
                   required
                 />
                 <label>Stock mínimo</label>
                 <input
                   type="number"
-                  value={nuevoProducto.stock_minimo}
-                  onChange={(e) => setNuevoProducto({ ...nuevoProducto, stock_minimo: parseInt(e.target.value) })}
+                  value={nuevoProducto.stock_minimo || ""}
+                  onChange={(e) => setNuevoProducto({ ...nuevoProducto, stock_minimo: parseInt(e.target.value) || 0 })}
                   required
                 />
               </div>
