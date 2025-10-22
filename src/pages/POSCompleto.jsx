@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { mostrarNotificacionGlobal } from "../utils/notificacionGlobal";
+import { guardarDocumentoVenta } from "../services/documentosService";
 import "../styles/POSCompleto.css";
 
 export default function POSCompleto() {
@@ -55,6 +56,13 @@ export default function POSCompleto() {
     const fecha = new Date().toISOString();
     const usuario_id = "25ebf2b5-e2e6-4544-a76e-e7cfceca5357"; // temporal
     const mesa = "A1"; // temporal
+    const vendedor = "Vendedor Demo"; // temporal
+    const cliente = "Cliente Demo"; // temporal
+    const telefono = ""; // temporal
+    const medioPago = "Efectivo"; // temporal
+    const pagadoCon = "Efectivo"; // temporal
+    const valorVenta = carrito.reduce((acc, item) => acc + item.total, 0);
+    const documento = `POS${Math.floor(Math.random() * 100000)}`;
 
     const ventas = carrito.map((item) => ({
       producto: item.nombre,
@@ -69,8 +77,26 @@ export default function POSCompleto() {
     const { error } = await supabase.from("ventas").insert(ventas);
     if (error) {
       mostrarNotificacionGlobal("❌ Error al registrar ventas", "error");
+      return;
+    }
+
+    // Guardar comprobante/factura en documentos_ventas
+    const docVenta = {
+      fecha,
+      mesa,
+      vendedor,
+      cliente,
+      documento,
+      telefono,
+      medioPago,
+      pagadoCon,
+      valorVenta,
+    };
+    const { error: errorDoc } = await guardarDocumentoVenta(docVenta);
+    if (errorDoc) {
+      mostrarNotificacionGlobal("❌ Error al guardar comprobante de venta", "error");
     } else {
-      mostrarNotificacionGlobal("✅ Venta registrada exitosamente", "exito");
+      mostrarNotificacionGlobal("✅ Venta y comprobante guardados", "exito");
       setCarrito([]);
     }
   };

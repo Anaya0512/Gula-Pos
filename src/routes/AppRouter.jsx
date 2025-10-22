@@ -1,3 +1,4 @@
+import DocumentosVentas from "../pages/DocumentosVentas";
 import ContabilidadGastos from "../pages/ContabilidadGastos";
 import ContabilidadTipoGastos from "../pages/ContabilidadTipoGastos";
 import ContabilidadCreditosClientes from "../pages/ContabilidadCreditosClientes";
@@ -74,7 +75,7 @@ export default function AppRouter() {
 										<Route path="/productos-pos" element={<ProductosPOS />} />
 										<Route path="/ventas" element={<MesasSelector />} />
 										<Route path="/cuadre-caja" element={<CuadreCaja />} />
-										<Route path="/ventas/documentos" element={<NotFound />} />
+										<Route path="/ventas/documentos" element={<DocumentosVentas />} />
 										<Route path="/ventas/comandas" element={<NotFound />} />
 										<Route path="/configuracion" element={<ConfiguracionMenu />} />
 											<Route path="/configuracion/info-negocio" element={<InformacionNegocio />} />

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import { guardarDocumentoVenta } from "../../services/documentosService";
 import "../../styles/CobroMesaModal.css";
 import NotificacionFlotante from "../../components/NotificacionFlotante";
 import FacturaVenta from "./FacturaVenta";
@@ -134,7 +135,25 @@ export default function CobroMesaModal({ productos, total, onClose, onCobrar, me
         setProcessing(false);
         return;
       }
-      setNotificacion("Venta realizada correctamente");
+      // Guardar comprobante/factura en documentos_ventas
+      const clienteObj = clientes.find(c => c.id === clienteId);
+      const docVenta = {
+        fecha: new Date().toISOString(),
+        mesa: mesaId,
+        vendedor: usuario?.nombre || "—",
+        cliente: clienteObj?.nombre || "—",
+        documento: ventaId,
+        telefono: clienteObj?.telefono || "",
+        mediopago: medioSeleccionado,
+        pagadocon: medioSeleccionado,
+        valorventa: subtotal
+      };
+      const { error: errorDoc } = await guardarDocumentoVenta(docVenta);
+      if (errorDoc) {
+        setNotificacion("Error al guardar comprobante de venta: " + errorDoc.message);
+      } else {
+        setNotificacion("Venta realizada correctamente");
+      }
       setItems([]);
       setShowFactura(ventaId);
     } catch (err) {

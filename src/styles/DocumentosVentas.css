@@ -1,0 +1,124 @@
+ .documentos-ventas-container {
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 18px 8px;
+  margin: 12px 8px;
+  max-width: 99vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+@media (max-width: 900px) {
+}
+  .documentos-ventas-container {
+    padding: 8px 2vw;
+    margin: 8px 2vw;
+  }
+  .documentos-ventas-title {
+    font-size: 1.2rem;
+  }
+  .documentos-ventas-filtros input,
+  .documentos-ventas-buscar {
+    font-size: 0.95rem;
+    padding: 7px 8px;
+  }
+  .documentos-ventas-table th, .documentos-ventas-table td {
+    padding: 10px 6px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .documentos-ventas-container {
+    padding: 2vw 1vw;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .documentos-ventas-title {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .documentos-ventas-filtros {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .documentos-ventas-filtros input,
+  .documentos-ventas-buscar {
+    width: 100%;
+    font-size: 0.93rem;
+    padding: 6px 5px;
+    min-width: unset;
+  }
+  .documentos-ventas-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    font-size: 0.92rem;
+  }
+  .documentos-ventas-table thead,
+  .documentos-ventas-table tbody,
+  .documentos-ventas-table tr {
+    display: table;
+    width: max-content;
+    min-width: 600px;
+  }
+  .documentos-ventas-table th, .documentos-ventas-table td {
+    padding: 7px 3px;
+    font-size: 0.92rem;
+  }
+}
+.documentos-ventas-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+.documentos-ventas-filtros {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.documentos-ventas-filtros input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  background: #fff;
+}
+.documentos-ventas-buscar {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(229,57,53,0.12);
+  transition: background 0.2s;
+}
+.documentos-ventas-buscar:hover {
+  background: #b71c1c;
+}
+.documentos-ventas-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.documentos-ventas-table th, .documentos-ventas-table td {
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 1rem;
+  border-bottom: 1px solid #ececec;
+}
+.documentos-ventas-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

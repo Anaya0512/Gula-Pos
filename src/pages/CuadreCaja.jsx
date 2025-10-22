@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import CuadreCajaModal from "./CuadreCajaModal";
 import "../styles/CuadreCaja.css";
 
 const datosCuadre = [
@@ -50,11 +51,17 @@ const datosCuadre = [
 ];
 
 export default function CuadreCaja() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const handleSave = (data) => {
+    // Aquí puedes guardar los datos o mostrar notificación
+    setModalVisible(false);
+  };
   return (
     <div className="cuadre-caja-container">
       <h2 className="cuadre-caja-title">CUADRES DE CAJA</h2>
       <div className="cuadre-caja-table-wrapper">
-        <button className="cuadre-caja-nueva">Nueva</button>
+        <CuadreCajaModal visible={modalVisible} onClose={() => setModalVisible(false)} onSave={handleSave} />
+        <button className="cuadre-caja-nueva" onClick={() => setModalVisible(true)} style={{ display: modalVisible ? 'none' : 'block' }}>Nueva</button>
         <table className="cuadre-caja-table">
           <thead>
             <tr>
