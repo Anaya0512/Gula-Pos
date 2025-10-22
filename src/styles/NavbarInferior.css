@@ -94,7 +94,7 @@
   display: flex;
   flex-direction: column;
   animation: fadeSubmenu 0.25s ease-out;
-  z-index: 9999;
+  z-index: 99999;
   min-width: 180px;
 }
 

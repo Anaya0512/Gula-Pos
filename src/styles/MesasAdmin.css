@@ -21,6 +21,7 @@
   padding: 22px 12px 18px 12px;
   margin-bottom: 2px;
   position: relative;
+  z-index: 2;
   border-radius: 16px;
 }
 .mesa-admin-profesional:hover {

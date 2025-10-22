@@ -12,7 +12,7 @@
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   background-color: var(--fondo-principal);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .sidebar {
@@ -23,7 +23,7 @@
   flex-direction: column;
   padding: 1rem;
   box-shadow: 2px 0 8px rgba(0,0,0,0.1);
-  position: sticky;
+  position: stick;
   top: 0;
   height: 100vh;
   flex-shrink: 0;

@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import "../styles/NavbarInferior.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
@@ -6,17 +7,15 @@ export default function NavbarInferior() {
   // Cerrar submenús al hacer click fuera de los botones de Productos, Inventario o Configuración
   useEffect(() => {
     function handleClickOutside(e) {
-      const productosBtn = referenciasBotones.Productos.current;
-      const configBtn = referenciasBotones.Configuración.current;
-      const inventarioBtn = referenciasBotones.Inventario.current;
       // Verifica si el clic fue en algún botón de menú principal
-      if (
-        (productosBtn && productosBtn.contains(e.target)) ||
-        (configBtn && configBtn.contains(e.target)) ||
-        (inventarioBtn && inventarioBtn.contains(e.target))
-      ) {
-        return;
-      }
+      let clickEnBoton = false;
+      Object.keys(referenciasBotones).forEach(key => {
+        const ref = referenciasBotones[key];
+        if (ref && ref.current && typeof ref.current.contains === 'function' && ref.current.contains(e.target)) {
+          clickEnBoton = true;
+        }
+      });
+      if (clickEnBoton) return;
       // Verifica si el clic fue dentro de un menú desplegable o submenú
       const submenu = document.querySelector('.ventana-submenu');
       const subsubmenu = document.querySelector('.ventana-subsubmenu');
@@ -27,7 +26,6 @@ export default function NavbarInferior() {
         return;
       }
       setSubmenuVisible(null);
-      setSubsubmenuVisible(null);
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -35,85 +33,90 @@ export default function NavbarInferior() {
   }, []);
   const navigate = useNavigate();
   const [submenuVisible, setSubmenuVisible] = useState(null);
-  const [subsubmenuVisible, setSubsubmenuVisible] = useState(null);
-  const [posicionSubmenu, setPosicionSubmenu] = useState({ x: 0, y: 0 });
-  const [posicionSubsubmenu, setPosicionSubsubmenu] = useState({ x: 0, y: 0 });
+  // Submenús simplificados, sin subsubmenuVisible
+  // Eliminados posicionSubmenu y posicionSubsubmenu para limpiar warnings
   const opciones = [
-    { nombre: "🏠 Dashboard", ruta: "/" },
-    { nombre: "🛍️ Vender", ruta: "/ventas" },
-    { nombre: "📦 Ventas", ruta: "/ventas/resumen/a5f30650-028c-4233-b278-3c42e3912b2f" },
+    { nombre: "Dashboard", ruta: "/" },
+    { nombre: "Vender", ruta: "/ventas" },
+    { nombre: "Ventas", desplegable: true, submenu: [
+      { nombre: "Cuadre de Caja", ruta: "/cuadre-caja" },
+      { nombre: "Documentos", ruta: "/ventas/documentos" },
+      { nombre: "Comandas", ruta: "/ventas/comandas" }
+    ] },
     { nombre: "Productos", desplegable: true },
-    { nombre: "📊 Contabilidad", desplegable: true, submenu: [
+    { nombre: "Inventario", desplegable: true },
+    { nombre: "Contabilidad", desplegable: true, submenu: [
       { nombre: "Gastos", ruta: "/contabilidad/gastos" },
       { nombre: "Tipo de Gastos", ruta: "/contabilidad/tipo-gastos" },
       { nombre: "Créditos Clientes", ruta: "/contabilidad/creditos-clientes" },
       { nombre: "Informes", ruta: "/contabilidad/informes" }
     ] },
-    { nombre: "📈 Estadísticas", ruta: "/estadisticas" },
-    { nombre: "🏢 Proveedores", ruta: "/proveedores-admin" },
-    { nombre: "🧑‍💼 Nómina", ruta: "/nomina" },
+    { nombre: "Estadísticas", ruta: "/estadisticas" },
+    { nombre: "Proveedores", ruta: "/proveedores-admin" },
+    { nombre: "Nómina", ruta: "/nomina" },
     { nombre: "Configuración", desplegable: true },
   ];
 
-  const referenciasBotones = {
-    Productos: useRef(null),
-    Configuración: useRef(null),
-    Inventario: useRef(null),
-    "📊 Contabilidad": useRef(null),
-  };
+    // Referencias para todos los botones principales del navbar
+  const refDashboard = useRef(null);
+  const refVender = useRef(null);
+  const refVentas = useRef(null);
+  const refProductos = useRef(null);
+  const refInventario = useRef(null);
+  const refContabilidad = useRef(null);
+  const refEstadísticas = useRef(null);
+  const refProveedores = useRef(null);
+  const refNómina = useRef(null);
+  const refConfiguración = useRef(null);
+
+    const referenciasBotones = {
+      Dashboard: refDashboard,
+      Vender: refVender,
+      Ventas: refVentas,
+      Productos: refProductos,
+      Inventario: refInventario,
+      Contabilidad: refContabilidad,
+      Estadísticas: refEstadísticas,
+      Proveedores: refProveedores,
+      Nómina: refNómina,
+      Configuración: refConfiguración,
+    };
 
   const mostrarSubmenu = (grupo) => {
     if (submenuVisible === grupo) {
       setSubmenuVisible(null);
-      setSubsubmenuVisible(null);
       return;
-    }
-    const ref = referenciasBotones[grupo]?.current;
-    if (ref) {
-      const rect = ref.getBoundingClientRect();
-      setPosicionSubmenu({ x: rect.left, y: rect.bottom });
-    } else {
-      // fallback para submenús sin referencia
-      setPosicionSubmenu({ x: 0, y: 48 });
     }
     setSubmenuVisible(grupo);
-    setSubsubmenuVisible(null);
   };
 
-  const mostrarSubsubmenu = (nombre, event) => {
-    if (subsubmenuVisible === nombre) {
-      setSubsubmenuVisible(null);
-      return;
-    }
-    const rect = event.target.getBoundingClientRect();
-    setPosicionSubsubmenu({ x: rect.right + 4, y: rect.top });
-    setSubsubmenuVisible(nombre);
-  };
+  // Eliminada función mostrarSubsubmenu para limpiar warnings
 
   const submenus = {
+    Ventas: [
+      { nombre: "Cuadre de Caja", ruta: "/cuadre-caja" },
+      { nombre: "Documentos", ruta: "/ventas/documentos" },
+      { nombre: "Comandas", ruta: "/ventas/comandas" }
+    ],
     Productos: [
-      { nombre: "📋 Productos", ruta: "/productos" },
-      {
-        nombre: "📦 Inventario",
-        esInventario: true,
-        subsubmenu: [
-          { nombre: "📑 Historial de movimientos", ruta: "/inventario/movimientos" },
-          { nombre: "➕ Registrar movimiento", ruta: "/inventario/registro" },
-          { nombre: "� Registrar pedido a proveedor", ruta: "/inventario/pedido-proveedor" },
-          { nombre: "🗂️ Ver inventario", ruta: "/inventario/ver" },
-        ]
-      },
-      { nombre: "🗂️ Categorías", ruta: "/productos/categorias" },
+      { nombre: "Productos", ruta: "/productos" },
+      { nombre: "Categorías", ruta: "/productos/categorias" },
+    ],
+    Inventario: [
+      { nombre: "Historial de movimientos", ruta: "/inventario/movimientos" },
+      { nombre: "Registrar movimiento", ruta: "/inventario/registro" },
+      { nombre: "Registrar pedido a proveedor", ruta: "/inventario/pedido-proveedor" },
+      { nombre: "Ver inventario", ruta: "/inventario/ver" },
     ],
     Configuración: [
-      { nombre: "🧑‍💼 Roles", ruta: "/configuracion/roles" },
-      { nombre: "🪑 Mesas", ruta: "/mesas/admin" },
-      { nombre: "🏢 Info del negocio", ruta: "/configuracion/info-negocio" },
-      { nombre: "💳 Medios de pago", ruta: "/configuracion/medios-pago" },
-      { nombre: "� Usuarios", ruta: "/configuracion/usuarios" },
-      { nombre: "�👤 Clientes", ruta: "/configuracion/clientes" },
+      { nombre: "Roles", ruta: "/configuracion/roles" },
+      { nombre: "Mesas", ruta: "/mesas/admin" },
+      { nombre: "Info del negocio", ruta: "/configuracion/info-negocio" },
+      { nombre: "Medios de pago", ruta: "/configuracion/medios-pago" },
+      { nombre: "Usuarios", ruta: "/configuracion/usuarios" },
+      { nombre: "Clientes", ruta: "/configuracion/clientes" },
     ],
-    "📊 Contabilidad": [
+    Contabilidad: [
       { nombre: "Gastos", ruta: "/contabilidad/gastos" },
       { nombre: "Tipo de Gastos", ruta: "/contabilidad/tipo-gastos" },
       { nombre: "Créditos Clientes", ruta: "/contabilidad/creditos-clientes" },
@@ -123,12 +126,12 @@ export default function NavbarInferior() {
 
   return (
     <>
-      <nav className="navbar-inferior">
-        <ul className="opciones-nav">
+      <nav className="navbar-inferior" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        <ul className="opciones-nav" style={{ display: 'flex', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
           {opciones.map((opcion, index) => {
             if (opcion.desplegable && submenus[opcion.nombre]) {
               return (
-                <li key={index} className="opcion-con-submenu">
+                <li key={index} className="opcion-con-submenu" style={{ position: 'relative', display: 'inline-block' }}>
                   <button
                     ref={referenciasBotones[opcion.nombre]}
                     className={`btn-nav-grupo grupo-${opcion.nombre.toLowerCase()}`}
@@ -139,93 +142,78 @@ export default function NavbarInferior() {
                       {submenuVisible === opcion.nombre ? "▴" : "▾"}
                     </span>
                   </button>
-                  {submenuVisible === opcion.nombre && (
-                    <div
-                      className={`ventana-submenu grupo-${submenuVisible.toLowerCase()}${submenuVisible === "Inventario" ? " grupo-productos" : ""}`}
-                      style={{
-                        position: "fixed",
-                        top: posicionSubmenu.y + 4,
-                        left: posicionSubmenu.x,
-                      }}
-                    >
-                      {submenus[opcion.nombre].map((item, idx) => {
-                        if (item.esInventario) {
-                          return (
-                            <button
-                              key={idx}
-                              className="item-submenu"
-                              ref={referenciasBotones.Inventario}
-                              onClick={e => mostrarSubsubmenu(item.nombre, e)}
-                              style={{fontWeight:'bold',background:'transparent'}}
-                            >
-                              {item.nombre}
-                            </button>
-                          );
-                        } else if (item.subsubmenu) {
-                          // fallback for any other subsubmenu
+                  {submenuVisible === opcion.nombre && (() => {
+                    // Calcular posición del menú principal
+                    const btn = referenciasBotones[opcion.nombre]?.current;
+                    let left = 0, top = 60, transform = "translateX(-50%)";
+                    const menuWidth = 160; // px
+                    if (btn) {
+                      const rect = btn.getBoundingClientRect();
+                      left = rect.left + rect.width / 2;
+                      top = rect.bottom + 8;
+                      if (rect.left < menuWidth / 2) {
+                        left = rect.left;
+                        transform = "none";
+                      } else if (left + menuWidth / 2 > window.innerWidth) {
+                        left = window.innerWidth - menuWidth - 8;
+                        transform = "none";
+                      } else {
+                        transform = "translateX(-50%)";
+                      }
+                    }
+                    return createPortal(
+                      <div
+                        className={`ventana-submenu grupo-${submenuVisible.toLowerCase()}`}
+                        style={{
+                          position: "fixed",
+                          top: top + "px",
+                          left: left + "px",
+                          transform: transform,
+                          minWidth: "160px",
+                          background: "#23232b",
+                          color: "#fff",
+                          borderRadius: "12px",
+                          boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+                          padding: "12px 0 0 0",
+                          zIndex: 100000,
+                          textAlign: "center",
+                          borderTop: "6px solid #e53935",
+                          borderBottom: "6px solid #1976d2"
+                        }}
+                      >
+                        {submenus[opcion.nombre].map((item, idx) => {
+                          if (item.ruta) {
+                            return (
+                              <button
+                                key={idx}
+                                className="item-submenu"
+                                onClick={() => {
+                                  navigate(item.ruta);
+                                  setSubmenuVisible(null);
+                                }}
+                                style={{
+                                  display: "block",
+                                  width: "100%",
+                                  background: "transparent",
+                                  color: "#fff",
+                                  fontWeight: 500,
+                                  textAlign: "center",
+                                  border: "none",
+                                  borderRadius: "6px",
+                                  padding: "10px 16px",
+                                  margin: "2px 0",
+                                  cursor: "pointer"
+                                }}
+                              >
+                                {item.nombre}
+                              </button>
+                            );
+                          }
                           return null;
-                        } else {
-                          return (
-                            <button
-                              key={idx}
-                              className="item-submenu"
-                              onClick={() => {
-                                navigate(item.ruta);
-                                setSubmenuVisible(null);
-                              }}
-                            >
-                              {item.nombre}
-                            </button>
-                          );
-                        }
-                      })}
-                      {subsubmenuVisible === "📦 Inventario" && (
-                        <div
-                          className="ventana-subsubmenu"
-                          style={{
-                            position: "fixed",
-                            top: posicionSubsubmenu.y,
-                            left: posicionSubsubmenu.x,
-                            zIndex: 9999,
-                            background: '#fff',
-                            borderRadius: 8,
-                            boxShadow: '0 2px 12px rgba(0,0,0,0.12)',
-                            padding: 8
-                          }}
-                        >
-                          {submenus.Productos.find(i => i.nombre === "📦 Inventario").subsubmenu.map((subitem, subidx) => (
-                            <button
-                              key={subidx}
-                              className="item-submenu"
-                              onClick={() => {
-                                navigate(subitem.ruta);
-                                setSubmenuVisible(null);
-                                setSubsubmenuVisible(null);
-                              }}
-                              style={{
-                                display: 'block',
-                                width: '100%',
-                                marginBottom: 2,
-                                background: 'transparent',
-                                color: '#222',
-                                fontWeight: 400,
-                                textAlign: 'left',
-                                border: 'none',
-                                borderRadius: 0,
-                                padding: '8px 16px',
-                                cursor: 'pointer',
-                                transition: 'background 0.15s',
-                              }}
-                              onMouseOver={e => e.currentTarget.style.background = '#f3f4f6'}
-                              onMouseOut={e => e.currentTarget.style.background = 'transparent'}
-                            >
-                              {subitem.nombre}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                        })}
+                      </div>, document.body
+                    );
+                  })()}
                 </li>
               );
             } else {
